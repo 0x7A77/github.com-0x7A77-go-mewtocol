@@ -78,15 +78,15 @@ func (c *TcpClient) listenLoop() {
 			fmt.Println("报文接收失败：", err)
 			c.ResCh <- ""
 		} else {
-			if isValidBCC(buf) {
+			// if isValidBCC(buf) {
 				fmt.Println("接收报文为：", buf[0:n])
 				fmt.Println("接收报文string结构为：", string(buf[0:n]))
 				c.ResCh <- string(buf[0:n])
 
-			} else {
-				fmt.Println(fmt.Sprintf("invalid BCC:%s", string(buf)))
-				c.ResCh <- ""
-			}
+			// } else {
+				// fmt.Println(fmt.Sprintf("invalid BCC:%s", string(buf)))
+				// c.ResCh <- ""
+			// }
 		}
 	}
 }

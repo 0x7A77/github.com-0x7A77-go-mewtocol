@@ -8,7 +8,8 @@ import (
 // format 将消息头%以及BCC加入到命令报文中
 func format(dstAddress uint, body string) string {
 	command := header() + address(dstAddress) + command() + body
-	sendData := command + getBcc(command)
+	// sendData := command + getBcc(command)
+	sendData := command + "**"
 	return sendData
 }
 
