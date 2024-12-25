@@ -61,7 +61,7 @@ func NewTCPConn(ip, port string) (*TcpClient, error) {
 }
 
 func (c *TcpClient) listenLoop() {
-	defer c.conn.Close()
+	defer c.Close()
 
 	// 在这里触发读取的逻辑
 	for {
@@ -79,16 +79,20 @@ func (c *TcpClient) listenLoop() {
 			c.ResCh <- ""
 		} else {
 			// if isValidBCC(buf) {
-				fmt.Println("接收报文为：", buf[0:n])
-				fmt.Println("接收报文string结构为：", string(buf[0:n]))
-				c.ResCh <- string(buf[0:n])
+			fmt.Println("接收报文为：", buf[0:n])
+			fmt.Println("接收报文string结构为：", string(buf[0:n]))
+			c.ResCh <- string(buf[0:n])
 
 			// } else {
-				// fmt.Println(fmt.Sprintf("invalid BCC:%s", string(buf)))
-				// c.ResCh <- ""
+			// fmt.Println(fmt.Sprintf("invalid BCC:%s", string(buf)))
+			// c.ResCh <- ""
 			// }
 		}
 	}
+}
+
+func (c *TcpClient) Close() error {
+	return c.conn.Close()
 }
 
 // send 发送请求报文
